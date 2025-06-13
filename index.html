@@ -10,7 +10,21 @@
 </head>
 <body>
   <h1>ずぼら家計簿アプリ</h1>
+  <section id="manual" class="card">
+  <h2>このアプリの使い方</h2>
+  <ul>
+    <li>支出を記録するための簡単な家計簿アプリです。</li>
+    <li>日付・品目・金額・メモを入力して「追加」ボタンを押すと保存されます。</li>
+    <li>保存された支出は下に一覧表示され、月ごとの合計金額も確認できます。</li>
+    <li>削除や編集も可能です。すべて削除すると全データが消えます。</li>
+    <li>※データはブラウザに保存されているため、端末ごとに保存されます。</li>
+  </ul>
+</section>
+
+<div class="main-container">
+  <div class="left-panel">
 <form id="expense-form">
+     <label for="expense-date">日付</label>
   <input type="date" id="expense-date" required />
   <input type="text" id="expense-name" placeholder="品目" required />
   <input type="number" id="expense-amount" placeholder="金額" required />
@@ -18,7 +32,11 @@
   <button type="submit">追加</button>
   <button id="cancel-button" type="button" style="display: none;">キャンセル</button>
 </form>
+  </div>
+
+  <div class="right-panel">
 <div id="expense-list"></div>
+</div>
 
 <p>合計金額: ¥<span id="total-amount">0</span></p>
 <button id="clear-button" type="button">すべて削除</button>

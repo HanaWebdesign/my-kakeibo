@@ -3,19 +3,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const expenseList = document.getElementById("expense-list");
   const totalAmount = document.getElementById("total-amount");
   const clearButton = document.getElementById("clear-button");
-const cancelButton = document.getElementById("cancel-button");
-
+  const cancelButton = document.getElementById("cancel-button");
 
   let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
-  let editingIndex = null; // ← 編集中のインデックスを覚える用
+  let editingIndex = null;
 
   function saveExpenses() {
-    console.log("保存中：", expenses);
     localStorage.setItem("expenses", JSON.stringify(expenses));
   }
 
   function renderExpenses() {
-    console.log("読み込み時：", expenses);
     expenseList.innerHTML = "";
     const groupedByMonth = {};
     let total = 0;
@@ -46,18 +43,6 @@ const cancelButton = document.getElementById("cancel-button");
 
       let monthTotal = 0;
 
-for (const day in groupedByMonth[month]) {
-  groupedByMonth[month][day].forEach(exp => {
-    monthTotal += parseFloat(exp.amount);
-  });
-}
-
-const monthTotalElem = document.createElement("p");
-monthTotalElem.textContent = `合計：¥${monthTotal.toLocaleString()}`;
-monthTotalElem.style.fontWeight = "bold";
-monthTotalElem.style.marginBottom = "10px";
-monthDiv.appendChild(monthTotalElem);
-
       for (const day in groupedByMonth[month]) {
         const dayDiv = document.createElement("div");
         const dayTitle = document.createElement("h4");
@@ -69,39 +54,42 @@ monthDiv.appendChild(monthTotalElem);
           item.textContent = `${exp.name}: ¥${exp.amount}（${exp.memo}）`;
 
           const deleteBtn = document.createElement("button");
-deleteBtn.textContent = "削除";
-deleteBtn.style.marginLeft = "10px";
-deleteBtn.addEventListener("click", () => {
-  // 該当データだけ削除
-  expenses = expenses.filter(e => e !== exp);
-  saveExpenses();
-  renderExpenses();
-});
+          deleteBtn.textContent = "削除";
+          deleteBtn.style.marginLeft = "10px";
+          deleteBtn.addEventListener("click", () => {
+            expenses = expenses.filter(e => e !== exp);
+            saveExpenses();
+            renderExpenses();
+          });
 
-  // 編集ボタン
-const editBtn = document.createElement("button");
-editBtn.textContent = "編集";
-editBtn.style.marginLeft = "5px";
-editBtn.addEventListener("click", () => {
-  // フォームに値をセット
-  document.getElementById("expense-name").value = exp.name;
-  document.getElementById("expense-amount").value = exp.amount;
-  document.getElementById("expense-memo").value = exp.memo;
-  document.getElementById("expense-date").value = exp.date;
+          const editBtn = document.createElement("button");
+          editBtn.textContent = "編集";
+          editBtn.style.marginLeft = "5px";
+          editBtn.addEventListener("click", () => {
+            document.getElementById("expense-name").value = exp.name;
+            document.getElementById("expense-amount").value = exp.amount;
+            document.getElementById("expense-memo").value = exp.memo;
+            document.getElementById("expense-date").value = exp.date;
+            editingIndex = expenses.indexOf(exp);
+            cancelButton.style.display = "inline";
+          });
 
-  // 編集対象としてマーク（インデックス記録）
-  editingIndex = expenses.indexOf(exp);
-  cancelButton.style.display = "inline";
-});
-
-item.appendChild(editBtn);
-item.appendChild(deleteBtn);
+          item.appendChild(editBtn);
+          item.appendChild(deleteBtn);
           dayDiv.appendChild(item);
+
+          monthTotal += parseFloat(exp.amount);
           total += parseFloat(exp.amount);
         });
 
         monthDiv.appendChild(dayDiv);
       }
+
+      const monthTotalElem = document.createElement("p");
+      monthTotalElem.textContent = `【${month} の合計：¥${monthTotal.toLocaleString()}】`;
+      monthTotalElem.style.fontWeight = "bold";
+      monthTotalElem.style.marginTop = "10px";
+      monthDiv.appendChild(monthTotalElem);
 
       expenseList.appendChild(monthDiv);
     }
@@ -116,24 +104,19 @@ item.appendChild(deleteBtn);
     const memo = document.getElementById("expense-memo").value;
     const date = document.getElementById("expense-date").value;
 
-      const expense = { name, amount, memo, date };
+    const expense = { name, amount, memo, date };
 
-  if (editingIndex !== null) {
-    // 編集モードなら上書き
-    expenses[editingIndex] = expense;
-    editingIndex = null;
-  } else {
-    // 通常の追加モード
-    expenses.push(expense);
-      expenseForm.reset();
-  cancelButton.style.display = "none";
+    if (editingIndex !== null) {
+      expenses[editingIndex] = expense;
+      editingIndex = null;
+      cancelButton.style.display = "none";
+    } else {
+      expenses.push(expense);
+    }
+
+    expenseForm.reset();
     saveExpenses();
-  renderExpenses();
-  }
-
-  saveExpenses();
-  renderExpenses();
-  expenseForm.reset();
+    renderExpenses();
   });
 
   clearButton.addEventListener("click", () => {
@@ -143,12 +126,6 @@ item.appendChild(deleteBtn);
       renderExpenses();
     }
   });
-cancelButton.addEventListener("click", () => {
-  expenseForm.reset();
-  editingIndex = null;
-  cancelButton.style.display = "none";
-  document.addEventListener("DOMContentLoaded", () => {
-  // ...すでにあるコードの中略...
 
   cancelButton.addEventListener("click", () => {
     expenseForm.reset();
@@ -156,9 +133,5 @@ cancelButton.addEventListener("click", () => {
     cancelButton.style.display = "none";
   });
 
-
-});
-
-});
   renderExpenses();
 });
