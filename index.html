@@ -23,25 +23,28 @@
 
 <div class="main-container">
   <div class="left-panel">
-<form id="expense-form">
-     <label for="expense-date">日付</label>
-  <input type="date" id="expense-date" required />
-  <input type="text" id="expense-name" placeholder="品目" required />
-  <input type="number" id="expense-amount" placeholder="金額" required />
-  <input type="text" id="expense-memo" placeholder="メモ" />
-  <button type="submit">追加</button>
-  <button id="cancel-button" type="button" style="display: none;">キャンセル</button>
-</form>
+    <form id="expense-form">
+      <label for="expense-date">日付</label>
+      <input type="date" id="expense-date" required />
+      <input type="text" id="expense-name" placeholder="品目" required />
+      <input type="number" id="expense-amount" placeholder="金額" required />
+      <input type="text" id="expense-memo" placeholder="メモ" />
+      <button type="submit">追加</button>
+      <button id="cancel-button" type="button" style="display: none;">キャンセル</button>
+      <p id="total-display" style="text-align:center; font-weight:bold;">
+        合計金額: ¥<span id="total-amount">0</span>
+      </p>
+    </form>
   </div>
 
   <div class="right-panel">
-<div id="expense-list"></div>
-</div>
+    <div id="expense-list"></div>
+  </div>
+</div> <!-- ← main-containerの終わり！ここで閉じる！ -->
 
-<p>合計金額: ¥<span id="total-amount">0</span></p>
+<!-- ✅ main-containerの外に配置！ -->
 <button id="clear-button" type="button">すべて削除</button>
 
-  
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

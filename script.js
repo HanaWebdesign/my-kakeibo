@@ -51,20 +51,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         groupedByMonth[month][day].forEach(exp => {
           const item = document.createElement("li");
-          item.textContent = `${exp.name}: ¥${exp.amount}（${exp.memo}）`;
+          item.style.display = "flex";
+          item.style.justifyContent = "space-between";
+          item.style.alignItems = "center";
+          item.style.marginBottom = "6px";
 
-          const deleteBtn = document.createElement("button");
-          deleteBtn.textContent = "削除";
-          deleteBtn.style.marginLeft = "10px";
-          deleteBtn.addEventListener("click", () => {
-            expenses = expenses.filter(e => e !== exp);
-            saveExpenses();
-            renderExpenses();
-          });
+          const textSpan = document.createElement("span");
+          textSpan.textContent = `${exp.name}: ¥${exp.amount}（${exp.memo}）`;
 
           const editBtn = document.createElement("button");
           editBtn.textContent = "編集";
-          editBtn.style.marginLeft = "5px";
           editBtn.addEventListener("click", () => {
             document.getElementById("expense-name").value = exp.name;
             document.getElementById("expense-amount").value = exp.amount;
@@ -74,8 +70,24 @@ document.addEventListener("DOMContentLoaded", () => {
             cancelButton.style.display = "inline";
           });
 
-          item.appendChild(editBtn);
-          item.appendChild(deleteBtn);
+          const deleteBtn = document.createElement("button");
+          deleteBtn.textContent = "削除";
+          deleteBtn.addEventListener("click", () => {
+            expenses = expenses.filter(e => e !== exp);
+            saveExpenses();
+            renderExpenses();
+          });
+
+          const buttonWrapper = document.createElement("span");
+          buttonWrapper.style.display = "inline-flex";
+          buttonWrapper.style.gap = "6px";
+          buttonWrapper.appendChild(editBtn);
+          buttonWrapper.appendChild(deleteBtn);
+          buttonWrapper.style.marginLeft = "10px";
+buttonWrapper.style.flexShrink = "0"; // 折り返し防止
+
+          item.appendChild(textSpan);
+          item.appendChild(buttonWrapper);
           dayDiv.appendChild(item);
 
           monthTotal += parseFloat(exp.amount);
