@@ -1,0 +1,48 @@
+body {
+  background-color: var(--bg-color);
+  color: var(--main-color);
+  font-family: 'Zen Maru Gothic', sans-serif;
+  margin: 20px;
+  line-height: 1.6;
+}
+
+h3, h4 {
+  color: var(--main-color);
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 4px;
+  margin-top: 20px;
+}
+
+button {
+  background-color: var(--accent-color);
+  border: none;
+  color: rgb(255, 124, 124);
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 6px;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: var(--main-color);
+}
+
+input, textarea, select {
+  border: 1px solid var(--sub-color);
+  border-radius: 6px;
+  padding: 6px;
+  margin: 4px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+form {
+  background-color: #6753ff;
+  padding: 16px;
+  border: 2px solid var(--sub-color);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
+}

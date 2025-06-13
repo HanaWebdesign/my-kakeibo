@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ずぼら家計簿</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
+
+</head>
+<body>
+  <h1>ずぼら家計簿アプリ</h1>
+<form id="expense-form">
+  <select id="month">
+    <option value="2025-01">2025年1月</option>
+    <option value="2025-02">2025年2月</option>
+    <option value="2025-03">2025年3月</option>
+    <option value="2025-04">2025年4月</option>
+    <option value="2025-05">2025年5月</option>
+    <option value="2025-06" selected>2025年6月</option>
+  </select>
+
+  <input type="date" id="expense-date" required />
+  <input type="text" id="expense-name" placeholder="品目" required />
+  <input type="number" id="expense-amount" placeholder="金額" required />
+  <input type="text" id="expense-memo" placeholder="メモ" />
+  <button type="submit">追加</button>
+  <button id="cancel-button" type="button" style="display: none;">キャンセル</button>
+</form>
+<div id="expense-list"></div>
+
+<p>合計金額: ¥<span id="total-amount">0</span></p>
+<button id="clear-button" type="button">すべて削除</button>
+
+  
+  <script src="script.js"></script>
+</body>
+</html>
