@@ -54,10 +54,19 @@ form {
 
 form input,
 form button {
-  flex: 1 1 150px; /* 最小150px、必要に応じて広がる */
-  max-width: 200px; /* 幅が広がりすぎないように */
+  flex: 1 1 150px;
+  max-width: 200px;
 }
 
 form button {
   max-width: none;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 4px;
+  color: white; 
+  font-weight: bold;
+  font-size: 14px;
 }
